@@ -1,0 +1,32 @@
+# Push-to-deploy for mapstructor.com (coming-soon era).
+# The live site is served by the Cloudflare Worker from R2's site/ prefix —
+# this workflow syncs the repo there on every push, so push = live in ~30s.
+# (At the Stage-D move, the apex swaps to GitHub Pages and this sync retires.)
+#
+# Repo secrets needed (same values as the main repo's backup workflow):
+#   R2_ACCOUNT_ID / R2_ACCESS_KEY_ID / R2_SECRET_ACCESS_KEY
+name: deploy-to-r2
+on:
+  push:
+    branches: [main, master]
+  workflow_dispatch: {}
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Sync site to R2
+        env:
+          RCLONE_CONFIG_R2_TYPE: s3
+          RCLONE_CONFIG_R2_PROVIDER: Cloudflare
+          RCLONE_CONFIG_R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+          RCLONE_CONFIG_R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+          RCLONE_CONFIG_R2_ENDPOINT: https://${{ secrets.R2_ACCOUNT_ID }}.r2.cloudflarestorage.com
+          RCLONE_CONFIG_R2_NO_CHECK_BUCKET: "true"
+        run: |
+          sudo apt-get install -y -qq rclone
+          rclone sync . "r2:mapstructor-tiles/site/" \
+            --exclude ".git/**" --exclude ".github/**" --exclude "README.md" \
+            --header-upload "Cache-Control: public, max-age=300"
+          rclone ls "r2:mapstructor-tiles/site/"
