@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MapStructor — coming soon</title>
+<meta name="description" content="MapStructor — build, style, and share interactive maps with a time dimension. Coming soon.">
+<style>
+  * { box-sizing:border-box; margin:0; }
+  html,body { height:100%; }
+  body {
+    font-family:'Segoe UI',system-ui,-apple-system,sans-serif; color:#2a2438;
+    background:
+      radial-gradient(1100px 600px at 15% -10%, #efe9fb 0%, rgba(239,233,251,0) 60%),
+      radial-gradient(900px 550px at 110% 110%, #e6f0e9 0%, rgba(230,240,233,0) 55%),
+      #faf9fd;
+    display:flex; align-items:center; justify-content:center; padding:28px;
+    overflow:hidden;
+  }
+  /* faint drifting map-dots */
+  .dots { position:fixed; inset:0; pointer-events:none; }
+  .dots span { position:absolute; width:7px; height:7px; border-radius:50%; background:#7c5cbf; opacity:.12; animation:drift 16s ease-in-out infinite; }
+  .dots span:nth-child(2){ left:78%; top:22%; background:#3d9a72; animation-delay:-4s; width:10px; height:10px; }
+  .dots span:nth-child(3){ left:14%; top:72%; background:#c47c00; animation-delay:-8s; }
+  .dots span:nth-child(4){ left:64%; top:80%; animation-delay:-12s; width:12px; height:12px; opacity:.08; }
+  .dots span:nth-child(5){ left:30%; top:16%; background:#3d9a72; animation-delay:-2s; }
+  .dots span:nth-child(6){ left:88%; top:60%; background:#c47c00; animation-delay:-10s; width:9px; height:9px; }
+  @keyframes drift { 0%,100%{ transform:translate(0,0);} 50%{ transform:translate(-18px,24px);} }
+
+  .card { position:relative; text-align:center; max-width:620px; width:100%; }
+  .pin {
+    width:74px; height:74px; margin:0 auto 20px; border-radius:24px;
+    background:linear-gradient(140deg,#8a68d8,#6c4fb3); color:#fff;
+    display:flex; align-items:center; justify-content:center;
+    box-shadow:0 16px 40px rgba(124,92,191,.35);
+    font-size:36px;
+  }
+  h1 { font-size:clamp(34px,7vw,52px); font-weight:800; letter-spacing:-1px; }
+  h1 .a { color:#7c5cbf; }
+  .tag { margin:14px auto 0; font-size:clamp(16px,2.6vw,19px); color:#5b5470; max-width:460px; line-height:1.55; }
+  .soon {
+    display:inline-block; margin-top:26px; font-size:13px; font-weight:700; letter-spacing:3px;
+    text-transform:uppercase; color:#7c5cbf; border:1.5px solid #d8cdf0; border-radius:99px;
+    padding:8px 22px; background:#fff;
+  }
+  .contact { margin-top:34px; font-size:15px; color:#6b6480; }
+  .contact a { color:#7c5cbf; font-weight:600; text-decoration:none; border-bottom:1.5px solid #d8cdf0; padding-bottom:1px; }
+  .contact a:hover { border-color:#7c5cbf; }
+  .foot { margin-top:44px; font-size:12.5px; color:#a49dbb; }
+</style>
+</head>
+<body>
+  <div class="dots"><span style="left:8%;top:34%"></span><span></span><span></span><span></span><span></span><span></span></div>
+  <main class="card">
+    <div class="pin">🗺️</div>
+    <h1>Map<span class="a">Structor</span></h1>
+    <p class="tag">Build, style, and share interactive maps with a time dimension — draw, import, animate, and publish, all in the browser.</p>
+    <div class="soon">Coming&nbsp;soon</div>
+    <p class="contact">Questions or early access — <a href="mailto:nittyjee@gmail.com">nittyjee@gmail.com</a></p>
+    <p class="foot">© 2026 MapStructor</p>
+  </main>
+</body>
+</html>
